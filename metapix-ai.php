@@ -125,6 +125,9 @@ class MetaPixAI {
         
         // Modules
         new MetaPixAI\Modules\ImageSEO();
+        new MetaPixAI\Modules\ImageMetadataSEO();
+        new MetaPixAI\Modules\ImageModeration();
+        new MetaPixAI\Modules\PromptHistory();
         new MetaPixAI\Modules\ContentOptimizer();
         new MetaPixAI\Modules\LinkingStructure();
         new MetaPixAI\Modules\PerformanceAnalyzer();

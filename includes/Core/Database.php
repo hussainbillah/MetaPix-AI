@@ -184,6 +184,173 @@ class Database {
             KEY created_at (created_at)
         ) $charset_collate;";
         
+        // User roles and permissions
+        $table_user_roles = $wpdb->prefix . 'metapix_user_roles';
+        $sql_user_roles = "CREATE TABLE $table_user_roles (
+            id bigint(20) NOT NULL AUTO_INCREMENT,
+            user_id bigint(20) NOT NULL,
+            role varchar(50) NOT NULL DEFAULT 'user',
+            permissions longtext,
+            status varchar(20) DEFAULT 'active',
+            banned_until datetime DEFAULT NULL,
+            banned_reason text,
+            created_at datetime DEFAULT CURRENT_TIMESTAMP,
+            updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            UNIQUE KEY user_id (user_id),
+            KEY role (role),
+            KEY status (status)
+        ) $charset_collate;";
+        
+        // Credits system
+        $table_user_credits = $wpdb->prefix . 'metapix_user_credits';
+        $sql_user_credits = "CREATE TABLE $table_user_credits (
+            id bigint(20) NOT NULL AUTO_INCREMENT,
+            user_id bigint(20) NOT NULL,
+            credits_balance int(10) DEFAULT 0,
+            credits_used int(10) DEFAULT 0,
+            credits_purchased int(10) DEFAULT 0,
+            last_topup datetime DEFAULT NULL,
+            subscription_plan varchar(50) DEFAULT 'free',
+            subscription_expires datetime DEFAULT NULL,
+            created_at datetime DEFAULT CURRENT_TIMESTAMP,
+            updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            UNIQUE KEY user_id (user_id),
+            KEY subscription_plan (subscription_plan),
+            KEY subscription_expires (subscription_expires)
+        ) $charset_collate;";
+        
+        // Credit transactions
+        $table_credit_transactions = $wpdb->prefix . 'metapix_credit_transactions';
+        $sql_credit_transactions = "CREATE TABLE $table_credit_transactions (
+            id bigint(20) NOT NULL AUTO_INCREMENT,
+            user_id bigint(20) NOT NULL,
+            transaction_type varchar(50) NOT NULL,
+            credits_amount int(10) NOT NULL,
+            balance_before int(10) NOT NULL,
+            balance_after int(10) NOT NULL,
+            reference_id varchar(255),
+            description text,
+            created_at datetime DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY user_id (user_id),
+            KEY transaction_type (transaction_type),
+            KEY created_at (created_at)
+        ) $charset_collate;";
+        
+        // Payment transactions
+        $table_payments = $wpdb->prefix . 'metapix_payments';
+        $sql_payments = "CREATE TABLE $table_payments (
+            id bigint(20) NOT NULL AUTO_INCREMENT,
+            user_id bigint(20) NOT NULL,
+            payment_method varchar(50) NOT NULL,
+            payment_gateway varchar(50) NOT NULL,
+            transaction_id varchar(255) NOT NULL,
+            amount decimal(10,2) NOT NULL,
+            currency varchar(10) NOT NULL,
+            credits_purchased int(10) NOT NULL,
+            status varchar(20) DEFAULT 'pending',
+            gateway_response longtext,
+            created_at datetime DEFAULT CURRENT_TIMESTAMP,
+            updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY user_id (user_id),
+            KEY transaction_id (transaction_id),
+            KEY status (status),
+            KEY created_at (created_at)
+        ) $charset_collate;";
+        
+        // Image generations
+        $table_image_generations = $wpdb->prefix . 'metapix_image_generations';
+        $sql_image_generations = "CREATE TABLE $table_image_generations (
+            id bigint(20) NOT NULL AUTO_INCREMENT,
+            user_id bigint(20) NOT NULL,
+            attachment_id bigint(20) DEFAULT NULL,
+            prompt text NOT NULL,
+            alt_text text,
+            title varchar(255),
+            caption text,
+            tags text,
+            filename_original varchar(255),
+            filename_optimized varchar(255),
+            credits_used int(5) DEFAULT 1,
+            generation_time decimal(5,2),
+            ai_confidence decimal(5,2),
+            status varchar(20) DEFAULT 'completed',
+            is_public tinyint(1) DEFAULT 0,
+            is_reported tinyint(1) DEFAULT 0,
+            moderation_status varchar(20) DEFAULT 'approved',
+            created_at datetime DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY user_id (user_id),
+            KEY attachment_id (attachment_id),
+            KEY status (status),
+            KEY is_public (is_public),
+            KEY moderation_status (moderation_status),
+            KEY created_at (created_at)
+        ) $charset_collate;";
+        
+        // Image reports
+        $table_image_reports = $wpdb->prefix . 'metapix_image_reports';
+        $sql_image_reports = "CREATE TABLE $table_image_reports (
+            id bigint(20) NOT NULL AUTO_INCREMENT,
+            image_generation_id bigint(20) NOT NULL,
+            reported_by bigint(20) NOT NULL,
+            report_reason varchar(100) NOT NULL,
+            report_description text,
+            status varchar(20) DEFAULT 'pending',
+            reviewed_by bigint(20) DEFAULT NULL,
+            reviewed_at datetime DEFAULT NULL,
+            action_taken varchar(50),
+            created_at datetime DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY image_generation_id (image_generation_id),
+            KEY reported_by (reported_by),
+            KEY status (status),
+            KEY created_at (created_at)
+        ) $charset_collate;";
+        
+        // Prompt history
+        $table_prompt_history = $wpdb->prefix . 'metapix_prompt_history';
+        $sql_prompt_history = "CREATE TABLE $table_prompt_history (
+            id bigint(20) NOT NULL AUTO_INCREMENT,
+            user_id bigint(20) NOT NULL,
+            prompt_text text NOT NULL,
+            prompt_category varchar(50),
+            usage_count int(5) DEFAULT 1,
+            is_favorite tinyint(1) DEFAULT 0,
+            is_template tinyint(1) DEFAULT 0,
+            last_used datetime DEFAULT CURRENT_TIMESTAMP,
+            created_at datetime DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY user_id (user_id),
+            KEY prompt_category (prompt_category),
+            KEY is_favorite (is_favorite),
+            KEY last_used (last_used)
+        ) $charset_collate;";
+        
+        // SEO audits
+        $table_seo_audits = $wpdb->prefix . 'metapix_seo_audits';
+        $sql_seo_audits = "CREATE TABLE $table_seo_audits (
+            id bigint(20) NOT NULL AUTO_INCREMENT,
+            user_id bigint(20) NOT NULL,
+            post_id bigint(20) DEFAULT NULL,
+            audit_type varchar(50) NOT NULL,
+            target_keywords text,
+            competitor_urls text,
+            audit_results longtext,
+            recommendations longtext,
+            overall_score decimal(5,2),
+            status varchar(20) DEFAULT 'completed',
+            created_at datetime DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY user_id (user_id),
+            KEY post_id (post_id),
+            KEY audit_type (audit_type),
+            KEY created_at (created_at)
+        ) $charset_collate;";
+        
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         
         dbDelta($sql_optimization_history);
@@ -193,6 +360,14 @@ class Database {
         dbDelta($sql_analytics);
         dbDelta($sql_license);
         dbDelta($sql_notifications);
+        dbDelta($sql_user_roles);
+        dbDelta($sql_user_credits);
+        dbDelta($sql_credit_transactions);
+        dbDelta($sql_payments);
+        dbDelta($sql_image_generations);
+        dbDelta($sql_image_reports);
+        dbDelta($sql_prompt_history);
+        dbDelta($sql_seo_audits);
         
         // Update database version
         update_option('metapix_ai_db_version', self::DB_VERSION);

@@ -1,0 +1,100 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Classic Cotton T-Shirt",
+      "description": "Soft, breathable cotton tee for everyday comfort.",
+      "price": 19.99,
+      "category": "Apparel",
+      "image": "https://images.unsplash.com/photo-1520975922284-7b683b82d46f?w=800&q=80"
+    },
+    {
+      "id": 2,
+      "title": "Slim Fit Jeans",
+      "description": "Stretch denim with a modern slim silhouette.",
+      "price": 49.99,
+      "category": "Apparel",
+      "image": "https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?w=800&q=80"
+    },
+    {
+      "id": 3,
+      "title": "Wireless Headphones",
+      "description": "Over-ear Bluetooth headphones with noise isolation.",
+      "price": 89.0,
+      "category": "Electronics",
+      "image": "https://images.unsplash.com/photo-1518444152891-d55c5bc75f19?w=800&q=80"
+    },
+    {
+      "id": 4,
+      "title": "Smartwatch Series 5",
+      "description": "Track fitness, heart rate, and notifications on the go.",
+      "price": 199.0,
+      "category": "Electronics",
+      "image": "https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?w=800&q=80"
+    },
+    {
+      "id": 5,
+      "title": "Ceramic Mug",
+      "description": "12oz glazed mug for coffee or tea.",
+      "price": 12.5,
+      "category": "Home",
+      "image": "https://images.unsplash.com/photo-1520975867597-6ea242d96bea?w=800&q=80"
+    },
+    {
+      "id": 6,
+      "title": "Aromatherapy Candle",
+      "description": "Lavender-scented candle with 40-hour burn time.",
+      "price": 15.0,
+      "category": "Home",
+      "image": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800&q=80"
+    },
+    {
+      "id": 7,
+      "title": "Running Shoes",
+      "description": "Lightweight trainers with responsive cushioning.",
+      "price": 79.99,
+      "category": "Footwear",
+      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80"
+    },
+    {
+      "id": 8,
+      "title": "Leather Backpack",
+      "description": "Durable, stylish backpack for work or travel.",
+      "price": 129.0,
+      "category": "Accessories",
+      "image": "https://images.unsplash.com/photo-1520975916090-3105956dac38?w=800&q=80"
+    },
+    {
+      "id": 9,
+      "title": "Stainless Water Bottle",
+      "description": "Insulated bottle keeps drinks cold for 24h.",
+      "price": 24.0,
+      "category": "Accessories",
+      "image": "https://images.unsplash.com/photo-1559515288-ea8e5d4bf97f?w=800&q=80"
+    },
+    {
+      "id": 10,
+      "title": "Yoga Mat",
+      "description": "Non-slip mat with 6mm cushioning for support.",
+      "price": 29.0,
+      "category": "Sports",
+      "image": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80"
+    },
+    {
+      "id": 11,
+      "title": "Desk Lamp",
+      "description": "LED lamp with adjustable brightness and angle.",
+      "price": 39.0,
+      "category": "Home",
+      "image": "https://images.unsplash.com/photo-1518306727298-4c17e1bf6948?w=800&q=80"
+    },
+    {
+      "id": 12,
+      "title": "Wireless Charger",
+      "description": "Fast-charging pad compatible with most phones.",
+      "price": 25.0,
+      "category": "Electronics",
+      "image": "https://images.unsplash.com/photo-1510535043828-8f63181480b3?w=800&q=80"
+    }
+  ]
+}

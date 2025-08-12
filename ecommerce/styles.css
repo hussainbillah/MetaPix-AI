@@ -1,0 +1,8 @@
+/* Drawer slide-in animation */
+#cartDrawer { transition: transform 0.25s ease; }
+
+/* Dialog tweaks */
+dialog { border: 0; }
+
+/* Utilities when Tailwind is not available (fallback) */
+.hidden { display: none; }
